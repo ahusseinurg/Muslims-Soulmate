@@ -49,5 +49,6 @@ button.chat-row:hover,button.chat-row.active{background:#f5edf7}
 .request-actions{display:flex;gap:8px;margin-top:10px}.request-actions button{padding:6px 11px;border-radius:7px;background:#693d70;color:white;font-size:12px;font-weight:700}.request-actions button+button{background:white;color:#75557e;border:1px solid #ddd0e2}
 .inbox-empty{display:flex;min-height:300px;padding:30px;align-items:center;justify-content:center;flex-direction:column;text-align:center;color:#8f7d95}.inbox-empty svg{color:#9a72a5;margin-bottom:12px}.inbox-empty h3{color:#604967}.inbox-empty p{font-size:13px;max-width:280px;margin-top:7px}
 @media(max-width:1000px){.message-layout{grid-template-columns:minmax(280px,.85fr) minmax(0,1.3fr)!important}}
-.chat-back{display:none;color:#693d70;font-size:30px;line-height:1;padding:2px 8px 3px 0}
-@media(max-width:760px){.message-layout{display:block!important}.message-layout .conversation{display:none}.message-layout:has(.conversation .chat-header) .chat-inbox{display:none}.message-layout:has(.conversation .chat-header) .conversation{display:flex}.chat-back{display:block}.chat-row{min-height:78px;padding:13px 14px}.chat-avatar{width:50px;height:50px}}
+.chat-back{display:none;align-items:center;justify-content:center;width:42px;height:42px;margin:-8px 2px -8px -8px;border-radius:50%;color:#693d70;flex:none}
+.chat-back:hover{background:#f1e8f3}
+@media(max-width:760px){.message-layout{display:block!important}.message-layout .conversation{display:none}.message-layout:has(.conversation .chat-header) .chat-inbox{display:none}.message-layout:has(.conversation .chat-header) .conversation{display:flex}.chat-back{display:flex}.chat-row{min-height:78px;padding:13px 14px}.chat-avatar{width:50px;height:50px}}
