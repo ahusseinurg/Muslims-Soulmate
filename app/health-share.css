@@ -28,3 +28,26 @@
 @media(max-width:1100px){.tester-setup{grid-template-columns:1fr auto}.tester-setup ol{grid-column:1/-1;grid-row:2}}
 @media(max-width:767px){.tester-setup{display:flex;flex-direction:column;align-items:stretch;padding:21px}.tester-setup ol{overflow-x:auto;padding-bottom:3px}.tester-setup>.primary{width:100%;min-height:48px}.tester-progress{align-items:stretch;flex-direction:column}.tester-progress .primary{width:100%}.topbar{position:sticky;top:0;z-index:25}.mobile-nav{scroll-snap-type:x proximity;scrollbar-width:none}.mobile-nav::-webkit-scrollbar{display:none}.mobile-nav button{scroll-snap-align:center;min-width:72px!important;min-height:48px}.profile-card .asc{font-size:14px}}
 @media(max-width:560px){.profile-grid{grid-template-columns:1fr!important;gap:18px!important}.profile-cover{height:auto!important;aspect-ratio:4/5}.profile-info{padding:15px!important}.profile-info h3{font-size:22px!important}.tags span{font-size:13px!important}.welcome{height:215px!important}.welcome>img{width:145px!important;height:145px!important}.welcome h2{font-size:24px!important}}
+
+.chat-inbox{padding:0!important;overflow:hidden;min-width:0}
+.inbox-heading{display:flex;align-items:center;justify-content:space-between;padding:22px 20px 13px}
+.inbox-heading h2{font-size:24px;letter-spacing:-.5px}
+.inbox-heading p{font-size:13px;color:#8d7a94;margin-top:2px}
+.inbox-heading>span{display:grid;place-items:center;min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:#eee3f1;color:#693d70;font-size:13px;font-weight:700}
+.chat-search{display:flex;align-items:center;gap:9px;margin:0 14px 10px;padding:10px 12px;border-radius:10px;background:#f5f2f6;color:#8c7d91;font-size:13px}
+.chat-row{width:100%;display:flex;align-items:center;gap:12px;padding:13px 16px;border-top:1px solid #eee8f0;text-align:left;background:white;min-height:76px;transition:background .16s}
+button.chat-row:hover,button.chat-row.active{background:#f5edf7}
+.chat-avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;flex:none;background:#e7d8eb;color:#633d6d;font-size:19px;font-weight:750}
+.chat-avatar.group{background:#dcebe5;color:#3f705d}.chat-avatar.request{background:#fff2d9;color:#9a6a20}
+.chat-row-copy{display:block;flex:1;min-width:0}
+.chat-row-copy>span:first-child,.chat-row-copy>div:first-child{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.chat-row-copy strong{font-size:15px;color:#3f3344;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chat-row-copy time{font-size:12px;color:#9a8d9f;white-space:nowrap}
+.chat-preview{display:flex!important;align-items:center;gap:5px;color:#8d7f92;font-size:13px;margin-top:4px;min-width:0}
+.chat-preview>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chat-preview svg{color:#7a4d85}
+.chat-chevron{color:#c1b4c5;flex:none}.request-row{align-items:flex-start}.request-row p{font-size:13px;color:#8a7890;margin-top:4px}
+.request-actions{display:flex;gap:8px;margin-top:10px}.request-actions button{padding:6px 11px;border-radius:7px;background:#693d70;color:white;font-size:12px;font-weight:700}.request-actions button+button{background:white;color:#75557e;border:1px solid #ddd0e2}
+.inbox-empty{display:flex;min-height:300px;padding:30px;align-items:center;justify-content:center;flex-direction:column;text-align:center;color:#8f7d95}.inbox-empty svg{color:#9a72a5;margin-bottom:12px}.inbox-empty h3{color:#604967}.inbox-empty p{font-size:13px;max-width:280px;margin-top:7px}
+@media(max-width:1000px){.message-layout{grid-template-columns:minmax(280px,.85fr) minmax(0,1.3fr)!important}}
+.chat-back{display:none;color:#693d70;font-size:30px;line-height:1;padding:2px 8px 3px 0}
+@media(max-width:760px){.message-layout{display:block!important}.message-layout .conversation{display:none}.message-layout:has(.conversation .chat-header) .chat-inbox{display:none}.message-layout:has(.conversation .chat-header) .conversation{display:flex}.chat-back{display:block}.chat-row{min-height:78px;padding:13px 14px}.chat-avatar{width:50px;height:50px}}
