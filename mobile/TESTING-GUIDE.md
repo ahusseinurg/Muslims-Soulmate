@@ -29,6 +29,8 @@ Safety reminders discourage sharing private addresses, identity documents, passw
 
 Share `Muslims-Soulmate-Android-Beta.apk` with invited adult testers. On an Android 8 or newer phone, download it, open the file, and allow installation from that download source if Android asks. Open Muslims Soulmate. An internet connection is required.
 
+Version 0.4.0-beta checks `downloads/update.json` on GitHub when the app opens. When a higher version is published, it offers to download the APK and opens Android's installation approval screen. Updates must retain the package name and signing key and use a higher version code.
+
 This is a native Android container for the shared online app, not a separate offline database. The Browser button opens the same app in the default browser. If an identity provider refuses embedded-browser sign-in, use Browser; its session is separate from the embedded app. Native sign-in and camera/GPS permission flows still need a real-device test.
 
 The APK was compiled and its Android signature verified. It has not been installed on a physical device or emulator in this environment.

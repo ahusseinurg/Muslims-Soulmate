@@ -1,4 +1,4 @@
-Android 8 or newer. Download Muslims-Soulmate-Android-Beta.apk and open it on your Android phone. Allow installation from your browser when Android asks.
+Version 0.4.0-beta adds GitHub update checks. Android 8 or newer. Download Muslims-Soulmate-Android-Beta.apk and open it on your Android phone. Allow installation from your browser when Android asks. Future native releases are detected when the app opens; the tester taps Update and approves Android's installation prompt.
 
 This is the existing signed 0.3.0 beta wrapper, not a new build. It requires internet and access to the private hosted application. Tester access must be enabled separately. Camera, microphone and notifications need device permissions. Physical-device calling and background notification testing remains outstanding. Payments and background-check providers are not connected.
 

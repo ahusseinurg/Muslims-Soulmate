@@ -1,36 +1,27 @@
 # Muslims Soulmate — mobile beta
 
-This repository contains the Android beta APK, Android source, iPhone source project, test instructions, and automated Android build workflows.
+Prepared for ahusseinurg. This repository package has not yet been uploaded to GitHub.
 
-## Install on Android
+## Install Android
 
-1. Download [Muslims-Soulmate-Android-Beta.apk](https://github.com/ahusseinurg/Muslims-Soulmate/raw/refs/heads/main/downloads/Muslims-Soulmate-Android-Beta.apk).
-2. Open the downloaded file on an Android 8 or newer phone.
-3. If Android asks, allow **Install unknown apps** for the browser or Files app used to open it.
-4. Choose **Install**, then **Open**.
+Open `downloads/Muslims-Soulmate-Android-Beta.apk` on GitHub and choose Download raw file. Open the downloaded APK on Android 8 or newer and allow installation from your browser when prompted. The signed APK is already built. No GitHub Actions run is needed to install it.
 
-The APK is already signed for beta testing. Compare its SHA-256 value with `downloads/SHA256SUMS` if you want to verify the download.
+The hosted application remains private at https://muslims-soulmate.ayhusse1.chatgpt.site. Installing the APK does not grant a friend access; the owner must arrange tester access separately.
 
-The hosted application remains private at https://muslims-soulmate.ayhusse1.chatgpt.site. Installing the APK does not automatically give a friend account access.
+## Publish a convenient release
 
-## Included
+Create a repository named `muslims-soulmate` at https://github.com/new with a README, then provide its link to the assistant to upload these files. A public repository permits downloads without a GitHub account; a private repository requires granting repository access to testers. Visibility of this repository does not change hosted app access.
 
-- Android beta APK and source
-- iPhone Xcode source project
-- Camera, microphone, location, and notification permissions
-- GitHub Actions source-build and release workflows
-- Testing guide and release notes
+After these files are committed to the default branch, run Actions → Publish signed Android beta → Run workflow. It publishes the bundled signed APK as release v0.3.0-beta. Run once; it deliberately fails if that tag already exists, preserving existing releases. The workflow requires Actions and contents-write permission. It has been prepared but not run on GitHub.
 
-## GitHub Actions
+## Future source builds
 
-**Android source build** compiles the Android project with Java 17, Gradle 8.9, and Android API 35. It produces an unsigned release artifact for owner signing.
-
-**Publish signed Android beta** can publish the bundled signed APK as release `v0.3.0-beta`. Run it manually from the Actions tab. It requires Actions and repository contents-write permission.
-
-Future updates must use the original owner signing key and increment `versionCode`. Never commit signing keys, passwords, payment credentials, background-check credentials, or notification-provider secrets.
+Android source build uses Java 17, Gradle 8.9 and Android API 35. It produces an UNSIGNED release artifact, which cannot be installed until the owner signs it. Future updates must use the owner's original signing key and increment versionCode. The private signing backup is intentionally absent. Never commit signing keys, passwords or provider credentials. The workflow does not silently substitute a different debug key.
 
 ## iPhone
 
-The Xcode project in `mobile/ios` is source only. An installable iPhone build still requires Apple signing and an approved distribution route. Testers can use the hosted web app in Safari after receiving account access.
+The Xcode project under mobile/ios is source only and has not been compiled or signed. GitHub downloads cannot bypass Apple signing. Use the existing web app in Safari for testing once account access is enabled, or arrange Apple-signed native distribution.
 
-See [mobile/TESTING-GUIDE.md](mobile/TESTING-GUIDE.md) for current functionality, safety checks, and remaining production integrations.
+See mobile/TESTING-GUIDE.md for features and remaining integration/device-test requirements. Backend source and hosting credentials are not in this mobile distribution package; the backend remains in its existing source project.
+
+References: https://cli.github.com/manual/gh_release_create and https://developer.android.com/build/releases/agp-8-7-0-release-notes
