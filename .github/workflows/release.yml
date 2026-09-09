@@ -1,0 +1,22 @@
+name: Publish signed Android beta
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify packaged APK checksum
+        working-directory: downloads
+        run: sha256sum --check SHA256SUMS
+      - name: Publish beta APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create v0.3.0-beta
+          downloads/Muslims-Soulmate-Android-Beta.apk downloads/SHA256SUMS
+          --target "$GITHUB_SHA" --prerelease
+          --title 'Muslims Soulmate Android 0.3.0 beta'
+          --notes-file RELEASE-NOTES.md
