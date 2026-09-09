@@ -1,0 +1,1 @@
+Muslims Soulmate mobile beta repository. Full source and Android test download are being uploaded.
