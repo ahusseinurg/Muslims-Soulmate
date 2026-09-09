@@ -29,6 +29,13 @@
       "when": 1788970113396,
       "tag": "0003_reflective_lady_deathstrike",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1788981866889,
+      "tag": "0004_shallow_pete_wisdom",
+      "breakpoints": true
     }
   ]
 }
