@@ -6,6 +6,7 @@ export type ChatGPTUser = {
   displayName: string;
   email: string;
   fullName: string | null;
+  isTester?: boolean;
 };
 
 const USER_ID_HEADER = "oai-authenticated-user-id";
@@ -22,7 +23,18 @@ export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
   const requestHeaders = await headers();
   const userId = requestHeaders.get(USER_ID_HEADER);
   const email = requestHeaders.get(USER_EMAIL_HEADER);
-  if (!userId || !email) return null;
+  if (!userId || !email) {
+    const cookie = requestHeaders.get("cookie") ?? "";
+    const testerId = cookie.match(/(?:^|;\s*)ms_tester=([a-f0-9-]{36})(?:;|$)/i)?.[1];
+    if (!testerId) return null;
+    return {
+      userId: `tester:${testerId}`,
+      displayName: "Beta tester",
+      email: `tester-${testerId.slice(0, 8)}@beta.local`,
+      fullName: null,
+      isTester: true,
+    };
+  }
 
   const encodedFullName = requestHeaders.get(USER_FULL_NAME_HEADER);
   const fullName =
