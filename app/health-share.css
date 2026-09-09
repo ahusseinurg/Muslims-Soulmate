@@ -1,0 +1,7 @@
+.legal-notice{display:flex;align-items:flex-start;gap:14px;padding:20px;border:1px solid #e0b965;border-radius:12px;background:#fff9e9;color:#6d5424}
+.legal-notice strong{display:block;font-size:16px;margin-bottom:5px}
+.legal-notice p{font-size:14px;line-height:1.6}
+.compliance-list ol{list-style:decimal;padding-left:22px;display:flex;flex-direction:column;gap:10px;margin-top:16px;color:#745f7b;font-size:14px}
+.group small{display:flex;align-items:center;gap:6px}
+.profile-cover .example-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%}
+.profile-cover:has(.example-photo)>svg{z-index:2;color:white;background:#3b263b99;border-radius:50%;padding:5px;width:30px;height:30px}

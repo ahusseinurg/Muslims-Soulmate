@@ -1,0 +1,7 @@
+import {env} from 'cloudflare:workers';
+import {database} from './server';
+export const config=()=>env as unknown as Record<string,string|undefined>;
+export async function notifyThread(thread:string,sender:string,kind:string){const db=database();const q:any=await db.prepare('SELECT sender,recipient FROM inquiries WHERE id=?').bind(thread).first();const recipients=q?[q.sender===sender?q.recipient:q.sender]:(await db.prepare('SELECT user FROM members WHERE group_id=? AND user<>?').bind(thread,sender).all()).results.map((x:any)=>x.user);for(const owner of recipients)await db.prepare('INSERT INTO notifications(owner,actor,kind,created) VALUES(?,?,?,?)').bind(owner,sender,kind,Date.now()).run();}
+export async function planFor(owner:string){const s:any=await database().prepare('SELECT * FROM subscriptions WHERE owner=? AND expires>?').bind(owner,Date.now()).first();return s?.plan==='plus'?'plus':s?.plan==='premium'?'premium':'free';}
+export const limits={free:5,plus:25,premium:100};
+export async function consumeInquiry(owner:string){const db=database(),plan=await planFor(owner),id=owner+':'+new Date().toISOString().slice(0,10);await db.prepare('INSERT OR IGNORE INTO daily_usage VALUES(?,0)').bind(id).run();const r=await db.prepare('UPDATE daily_usage SET count=count+1 WHERE id=? AND count<?').bind(id,limits[plan]).run();if(!r.meta.changes)throw Error('Daily Asc limit reached. Try tomorrow or view membership plans.');}

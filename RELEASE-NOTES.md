@@ -1,5 +1,7 @@
-Version 0.4.0-beta adds GitHub update checks. Android 8 or newer. Download Muslims-Soulmate-Android-Beta.apk and open it on your Android phone. Allow installation from your browser when Android asks. Future native releases are detected when the app opens; the tester taps Update and approves Android's installation prompt.
+# Muslims Soulmate Android 0.4.0 beta
 
-This is the existing signed 0.3.0 beta wrapper, not a new build. It requires internet and access to the private hosted application. Tester access must be enabled separately. Camera, microphone and notifications need device permissions. Physical-device calling and background notification testing remains outstanding. Payments and background-check providers are not connected.
+This public-testing build opens the Muslims Soulmate hosted app and supports camera, microphone, optional location, notifications, voice messages, attachments, and beta audio/video calls.
 
-This APK does not install on iPhone. The included iOS source requires Apple signing before native distribution.
+Version 0.4.0 adds a GitHub-based update check. When a later native version is available, the app offers to download it; Android always asks the tester to approve installation.
+
+The hosted web content updates automatically without reinstalling the APK. Physical-device testing is still required. Paid services, background-check verification, production calling infrastructure, and regulated health-benefit services require external providers and compliance work.

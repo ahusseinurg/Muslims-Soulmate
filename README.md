@@ -1,27 +1,41 @@
-# Muslims Soulmate — mobile beta
+# Muslims Soulmate
 
-Prepared for ahusseinurg. This repository package has not yet been uploaded to GitHub.
+Muslims Soulmate is a public-testing relationship and community app for Muslim adults. This repository contains the full hosted web-app source, Android and iOS wrapper projects, database migrations, tests, and the downloadable Android beta.
 
-## Install Android
+## Try the app
 
-Open `downloads/Muslims-Soulmate-Android-Beta.apk` on GitHub and choose Download raw file. Open the downloaded APK on Android 8 or newer and allow installation from your browser when prompted. The signed APK is already built. No GitHub Actions run is needed to install it.
+- Public web app: https://muslims-soulmate.ayhusse1.chatgpt.site
+- Android APK: [Download Muslims-Soulmate-Android-Beta.apk](https://github.com/ahusseinurg/Muslims-Soulmate/raw/refs/heads/main/downloads/Muslims-Soulmate-Android-Beta.apk)
 
-The hosted application remains private at https://muslims-soulmate.ayhusse1.chatgpt.site. Installing the APK does not grant a friend access; the owner must arrange tester access separately.
+On Android, open the downloaded APK and allow installation from your browser or Files app if prompted. The current Android wrapper checks `downloads/update.json` when it opens and offers future native updates. Android still requires the tester to approve each installation.
 
-## Publish a convenient release
+## Current beta features
 
-Create a repository named `muslims-soulmate` at https://github.com/new with a README, then provide its link to the assistant to upload these files. A public repository permits downloads without a GitHub account; a private repository requires granting repository access to testers. Visibility of this repository does not change hosted app access.
+- Profile browsing without swiping, optional approximate GPS, sect, age, religiosity, bio, and marital history
+- Camera-only portrait and full-body profile photos with six-month renewal rules
+- “Asc” inquiries, text and voice messages, attachments, groups, stories, blocking, and safety reminders
+- Audio/video calling and Android notification prototypes
+- Events, including free registration and paid-event setup with a configurable 5% platform fee
+- Annual background-check verification workflow and paid-membership setup
+- Health Share planning groups for voluntary contribution tracking; this is not presented as insurance
+- Fictional preview profiles with original generated portraits
 
-After these files are committed to the default branch, run Actions → Publish signed Android beta → Run workflow. It publishes the bundled signed APK as release v0.3.0-beta. Run once; it deliberately fails if that tag already exists, preserving existing releases. The workflow requires Actions and contents-write permission. It has been prepared but not run on GitHub.
+## Development
 
-## Future source builds
+The hosted app uses Node.js, Vinext, Cloudflare Workers, D1, and R2.
 
-Android source build uses Java 17, Gradle 8.9 and Android API 35. It produces an UNSIGNED release artifact, which cannot be installed until the owner signs it. Future updates must use the owner's original signing key and increment versionCode. The private signing backup is intentionally absent. Never commit signing keys, passwords or provider credentials. The workflow does not silently substitute a different debug key.
+```bash
+npm ci
+npm run build
+node --test tests/access.cjs tests/features.cjs
+```
 
-## iPhone
+Runtime credentials and provider secrets are intentionally not included. Stripe, a background-check provider, production push delivery, TURN infrastructure, and any regulated health-benefit program require separate provider configuration and legal/compliance review.
 
-The Xcode project under mobile/ios is source only and has not been compiled or signed. GitHub downloads cannot bypass Apple signing. Use the existing web app in Safari for testing once account access is enabled, or arrange Apple-signed native distribution.
+## Mobile builds
 
-See mobile/TESTING-GUIDE.md for features and remaining integration/device-test requirements. Backend source and hosting credentials are not in this mobile distribution package; the backend remains in its existing source project.
+The Android project is under `mobile/android`. GitHub Actions builds an unsigned release artifact for owner signing. The installable beta under `downloads/` is signed with the existing test key. Future APKs must retain the same application ID and signing key and use a higher version code.
 
-References: https://cli.github.com/manual/gh_release_create and https://developer.android.com/build/releases/agp-8-7-0-release-notes
+The iOS project under `mobile/ios` requires Apple signing before it can be installed on iPhones.
+
+See [mobile/TESTING-GUIDE.md](mobile/TESTING-GUIDE.md) for test guidance.
