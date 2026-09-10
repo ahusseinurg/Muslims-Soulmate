@@ -1,8 +1,9 @@
 'use client';
 
-import { Camera, Heart, Image, MapPin, Menu, MessageCircle, Plus, Search, ShieldCheck } from 'lucide-react';
+import { CalendarDays, Clapperboard, Heart, Image, MapPin, Menu, MessageCircle, Plus, Search, ShieldCheck, Users } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
-export default function MobileSocialHome({ me, profiles, statuses, query, setQuery, name, onMenu, onMessages, onStatus, onViewStatus, onProfile, onLike }: any) {
+export default function MobileSocialHome({ me, profiles, statuses, query, setQuery, name, onMenu, onMessages, onStatus, onVideo, onGroup, onEvent, onViewStatus, onProfile, onLike }: any) {
   const photo = (p: any) => p?.photos?.find((x: any) => !x.expired && x.status === 'approved');
   const locality = (p: any) => String(p?.location || '').split(',')[0]?.trim().toLowerCase();
   const nearby = profiles.filter((p: any) => Number.isFinite(p.distanceKm) || (locality(me) && locality(p) === locality(me))).sort((a: any, b: any) => (Number.isFinite(a.distanceKm) ? a.distanceKm : 99999) - (Number.isFinite(b.distanceKm) ? b.distanceKm : 99999)).slice(0, 6);
@@ -10,7 +11,7 @@ export default function MobileSocialHome({ me, profiles, statuses, query, setQue
     <header className="feed-topbar">
       <button onClick={onMenu} aria-label="Open menu"><Menu/></button>
       <strong>muslims <span>soulmate.</span></strong>
-      <div><button onClick={onStatus} aria-label="Create status"><Plus/></button><button onClick={() => document.getElementById('mobile-feed-search')?.focus()} aria-label="Search"><Search/></button><button onClick={onMessages} aria-label="Messages"><MessageCircle/></button></div>
+      <div><DropdownMenu><DropdownMenuTrigger asChild><button aria-label="Create something"><Plus/></button></DropdownMenuTrigger><DropdownMenuContent className="soulmate-create-menu" align="end" sideOffset={9}><DropdownMenuLabel><strong>Create</strong><span>Share with purpose</span></DropdownMenuLabel><DropdownMenuSeparator/><DropdownMenuItem onSelect={onStatus}><span className="create-menu-icon status"><Image/></span><span><strong>Status update</strong><small>Share a thought, photo, or moment for 24 hours</small></span></DropdownMenuItem><DropdownMenuItem onSelect={onVideo}><span className="create-menu-icon video"><Clapperboard/></span><span><strong>Short video</strong><small>Let people see more of your personality</small></span></DropdownMenuItem><DropdownMenuItem onSelect={onGroup}><span className="create-menu-icon group"><Users/></span><span><strong>Matchmaking circle</strong><small>Bring trusted community members together</small></span></DropdownMenuItem><DropdownMenuItem onSelect={onEvent}><span className="create-menu-icon event"><CalendarDays/></span><span><strong>Community event</strong><small>Plan a respectful public gathering</small></span></DropdownMenuItem></DropdownMenuContent></DropdownMenu><button onClick={() => document.getElementById('mobile-feed-search')?.focus()} aria-label="Search"><Search/></button><button onClick={onMessages} aria-label="Messages"><MessageCircle/></button></div>
     </header>
     <section className="feed-composer">
       <button className="feed-avatar" onClick={() => onProfile(me)}>{photo(me) ? <img src={'/api/camera?id=' + photo(me).id} alt="Your profile"/> : me?.name?.charAt(0)}</button>
