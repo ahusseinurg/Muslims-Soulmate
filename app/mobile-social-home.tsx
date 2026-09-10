@@ -15,7 +15,7 @@ export default function MobileSocialHome({ me, profiles, statuses, query, setQue
     </header>
     <section className="feed-composer">
       <button className="feed-avatar" onClick={() => onProfile(me)}>{photo(me) ? <img src={'/api/camera?id=' + photo(me).id} alt="Your profile"/> : me?.name?.charAt(0)}</button>
-      <button className="feed-prompt" onClick={onStatus}>Share a status update…</button>
+      <button className="feed-prompt" onClick={onStatus}>Share something meaningful…</button>
       <button className="feed-photo" onClick={onStatus} aria-label="Share photo or video"><Image/></button>
     </section>
     <section className="feed-stories" aria-label="Status updates">
@@ -24,7 +24,7 @@ export default function MobileSocialHome({ me, profiles, statuses, query, setQue
       {statuses.slice(0, 10).map((s: any) => { const owner = profiles.find((p: any) => p.id === s.owner), portrait = photo(owner); return <button className="feed-story" key={s.id} onClick={() => onViewStatus(s)}>{portrait ? <img src={'/api/camera?id=' + portrait.id} alt=""/> : <span className="story-letter">{name(s.owner).charAt(0)}</span>}<i>{name(s.owner).charAt(0)}</i><strong>{s.owner === me?.id ? 'Your status' : name(s.owner).split(' ')[0]}</strong></button>; })}
     </section>
     <div className="feed-search"><Search/><input id="mobile-feed-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search people, interests, or city" aria-label="Search people"/></div>
-    <div className="feed-label"><span>People you may connect with</span><small><ShieldCheck/>Respectful community</small></div>
+    <div className="feed-label"><span>Discover with intention</span><small><ShieldCheck/>Respectful community</small></div>
     <section className="connection-feed">
       {profiles.length ? profiles.map((p: any) => { const portrait = photo(p); return <article className="connection-post" key={p.id}>
         <button className="connection-author" onClick={() => onProfile(p)}><span>{portrait ? <img src={'/api/camera?id=' + portrait.id} alt=""/> : p.name.charAt(0)}</span><div><strong>{p.name}, {p.age}</strong><small>{p.location} · {p.religiosity}</small></div></button>
