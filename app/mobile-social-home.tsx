@@ -1,9 +1,11 @@
 'use client';
 
-import { Camera, Heart, Image, Menu, MessageCircle, Plus, Search, ShieldCheck } from 'lucide-react';
+import { Camera, Heart, Image, MapPin, Menu, MessageCircle, Plus, Search, ShieldCheck } from 'lucide-react';
 
 export default function MobileSocialHome({ me, profiles, statuses, query, setQuery, name, onMenu, onMessages, onStatus, onViewStatus, onProfile, onLike }: any) {
   const photo = (p: any) => p?.photos?.find((x: any) => !x.expired && x.status === 'approved');
+  const locality = (p: any) => String(p?.location || '').split(',')[0]?.trim().toLowerCase();
+  const nearby = profiles.filter((p: any) => Number.isFinite(p.distanceKm) || (locality(me) && locality(p) === locality(me))).sort((a: any, b: any) => (Number.isFinite(a.distanceKm) ? a.distanceKm : 99999) - (Number.isFinite(b.distanceKm) ? b.distanceKm : 99999)).slice(0, 6);
   return <div className="mobile-social-home">
     <header className="feed-topbar">
       <button onClick={onMenu} aria-label="Open menu"><Menu/></button>
@@ -17,6 +19,7 @@ export default function MobileSocialHome({ me, profiles, statuses, query, setQue
     </section>
     <section className="feed-stories" aria-label="Status updates">
       <button className="feed-story create" onClick={onStatus}><span><Plus/></span><strong>Create status</strong></button>
+      {nearby.map((p: any) => { const portrait = photo(p); return <button className="feed-story nearby" key={'nearby-' + p.id} onClick={() => onProfile(p)}>{portrait ? <img src={'/api/camera?id=' + portrait.id} alt=""/> : <span className="story-letter">{p.name.charAt(0)}</span>}<i><MapPin/></i><em>NEARBY</em><strong>{p.name.split(' ')[0]}<small>{Number.isFinite(p.distanceKm) ? `About ${Math.round(p.distanceKm)} km` : p.location}</small></strong></button>; })}
       {statuses.slice(0, 10).map((s: any) => { const owner = profiles.find((p: any) => p.id === s.owner), portrait = photo(owner); return <button className="feed-story" key={s.id} onClick={() => onViewStatus(s)}>{portrait ? <img src={'/api/camera?id=' + portrait.id} alt=""/> : <span className="story-letter">{name(s.owner).charAt(0)}</span>}<i>{name(s.owner).charAt(0)}</i><strong>{s.owner === me?.id ? 'Your status' : name(s.owner).split(' ')[0]}</strong></button>; })}
     </section>
     <div className="feed-search"><Search/><input id="mobile-feed-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search people, interests, or city" aria-label="Search people"/></div>
