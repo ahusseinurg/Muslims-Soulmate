@@ -1,16 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { Bell, CalendarDays, Check, Clapperboard, Heart, Image, MapPin, Menu, MessageCircle, Plus, RefreshCw, Search, ShieldCheck, Users, X } from 'lucide-react';
+import { Bell, Bookmark, CalendarDays, Check, Clapperboard, Heart, Image, MapPin, Menu, MessageCircle, Plus, RefreshCw, Search, ShieldCheck, Users, X } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
-export default function MobileSocialHome({ me, profiles, statuses, query, setQuery, name, pendingCount = 0, connectionCount = 0, onMenu, onMessages, onStatus, onVideo, onGroup, onEvent, onRefresh, onViewStatus, onProfile, onLike }: any) {
+export default function MobileSocialHome({ me, profiles, statuses, favorites = [], connections = [], query, setQuery, name, pendingCount = 0, connectionCount = 0, onMenu, onMessages, onStatus, onVideo, onGroup, onEvent, onRefresh, onViewStatus, onProfile, onLike, onFavorite }: any) {
   const [filter, setFilter] = useState('All');
   const [refreshing, setRefreshing] = useState(false);
   const photo = (p: any) => p?.photos?.find((x: any) => !x.expired && x.status === 'approved');
   const locality = (p: any) => String(p?.location || '').split(',')[0]?.trim().toLowerCase();
   const nearby = profiles.filter((p: any) => p.id.startsWith('example') || Number.isFinite(p.distanceKm) || (locality(me) && locality(p) === locality(me))).sort((a: any, b: any) => (Number.isFinite(a.distanceKm) ? a.distanceKm : 99999) - (Number.isFinite(b.distanceKm) ? b.distanceKm : 99999)).slice(0, 12);
-  const visibleProfiles = profiles.filter((p: any) => filter === 'All' || (filter === 'Nearby' ? Number.isFinite(p.distanceKm) || locality(p) === locality(me) : p.gender === filter));
+  const visibleProfiles = profiles.filter((p: any) => filter === 'All' || (filter === 'Nearby' ? Number.isFinite(p.distanceKm) || locality(p) === locality(me) : filter === 'Saved' ? favorites.includes(p.id) : filter === 'Connected' ? connections.includes(p.id) : p.gender === filter));
   async function refreshHome(){setRefreshing(true);try{await onRefresh?.();}finally{setTimeout(()=>setRefreshing(false),350);}}
   return <div className="mobile-social-home">
     <header className="feed-topbar">
@@ -29,14 +29,14 @@ export default function MobileSocialHome({ me, profiles, statuses, query, setQue
       {statuses.slice(0, 10).map((s: any) => { const owner = profiles.find((p: any) => p.id === s.owner), portrait = photo(owner); return <button className="feed-story" key={s.id} onClick={() => onViewStatus(s)}>{portrait ? <img src={'/api/camera?id=' + portrait.id} alt=""/> : <span className="story-letter">{name(s.owner).charAt(0)}</span>}<i>{name(s.owner).charAt(0)}</i><strong>{s.owner === me?.id ? 'Your status' : name(s.owner).split(' ')[0]}</strong></button>; })}
     </section>
     <div className="feed-tools"><div className="feed-search"><Search/><input id="mobile-feed-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search people, interests, or city" aria-label="Search people"/>{query && <button onClick={() => setQuery('')} aria-label="Clear search"><X/></button>}</div><button className={refreshing ? 'home-refresh refreshing' : 'home-refresh'} onClick={refreshHome} aria-label="Refresh profiles"><RefreshCw/></button></div>
-    <div className="home-filters" aria-label="Filter profiles">{['All','Nearby','Woman','Man'].map(x => <button key={x} className={filter === x ? 'active' : ''} onClick={() => setFilter(x)}>{x === 'Nearby' && <MapPin/>}{x}</button>)}</div>
+    <div className="home-filters" aria-label="Filter profiles">{['All','Nearby','Saved','Connected','Woman','Man'].map(x => <button key={x} className={filter === x ? 'active' : ''} onClick={() => setFilter(x)}>{x === 'Nearby' && <MapPin/>}{x === 'Saved' && <Bookmark/>}{x === 'Connected' && <Heart/>}{x}</button>)}</div>
     <div className="feed-label"><span>Discover with intention</span><small><ShieldCheck/>Respectful community</small></div>
     <section className="connection-feed">
       {visibleProfiles.length ? visibleProfiles.map((p: any) => { const portrait = photo(p); return <article className="connection-post" key={p.id}>
-        <button className="connection-author" onClick={() => onProfile(p)}><span>{portrait ? <img src={'/api/camera?id=' + portrait.id} alt=""/> : p.name.charAt(0)}</span><div><strong>{p.name}, {p.age}</strong><small>{p.location} · {p.religiosity}</small></div></button>
+        <button className="connection-author" onClick={() => onProfile(p)}><span>{portrait ? <img src={'/api/camera?id=' + portrait.id} alt=""/> : p.name.charAt(0)}</span><div><strong>{p.name}, {p.age}</strong><small>{p.location} · {p.religiosity}</small>{connections.includes(p.id)&&<em>Connected</em>}</div></button>
         <button className="connection-photo" onClick={() => onProfile(p)}>{portrait ? <img src={'/api/camera?id=' + portrait.id} alt={p.name}/> : <span>{p.name.split(' ').map((x: string) => x[0]).slice(0, 2).join('')}</span>}</button>
         <div className="connection-copy"><p>{p.bio}</p><div><span>{p.past}</span><span>{p.sect || 'Prefer not to say'}</span></div></div>
-        <div className="connection-actions"><button onClick={() => onLike(p)}><Heart/>Say Asc</button><button onClick={() => onProfile(p)}><MessageCircle/>View profile</button></div>
+        <div className="connection-actions"><button onClick={() => onLike(p)}><Heart/>Say Asc</button><button onClick={() => onFavorite(p)} aria-pressed={favorites.includes(p.id)}><Bookmark fill={favorites.includes(p.id)?'currentColor':'none'}/>{favorites.includes(p.id)?'Saved':'Save'}</button><button onClick={() => onProfile(p)}><MessageCircle/>Profile</button></div>
       </article>; }) : <div className="feed-empty"><Search/><strong>No profiles match this view</strong><p>Try another filter or clear your search.</p><button className="outline" onClick={() => {setFilter('All');setQuery('');}}>Show everyone</button></div>}
     </section>
   </div>;
