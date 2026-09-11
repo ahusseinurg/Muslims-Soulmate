@@ -43,6 +43,13 @@
       "when": 1789093324325,
       "tag": "0005_broken_puff_adder",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1789108582768,
+      "tag": "0006_empty_sally_floyd",
+      "breakpoints": true
     }
   ]
 }
