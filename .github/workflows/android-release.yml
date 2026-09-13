@@ -61,3 +61,5 @@ jobs:
           git commit -m "Publish Android beta $VERSION_NAME" || true
           git push
           gh release create "v$VERSION_NAME" downloads/Muslimate-Android-Beta.apk downloads/SHA256SUMS --target "$GITHUB_SHA" --prerelease --title "Muslimate Android $VERSION_NAME" --generate-notes || gh release upload "v$VERSION_NAME" downloads/Muslimate-Android-Beta.apk downloads/SHA256SUMS --clobber
+
+# Release workflow enabled after signing secrets were added.
