@@ -1,5 +1,36 @@
 plugins { id 'com.android.application' }
-android { namespace 'com.dadir.muslimssoulmate'; compileSdk 35
- defaultConfig { applicationId 'com.dadir.muslimssoulmate'; minSdk 26; targetSdk 35; versionCode 5; versionName '0.5.0-beta' }
- buildTypes { debug { debuggable true }; release { minifyEnabled false } }
+
+def signingProperties = new Properties()
+def signingPropertiesFile = rootProject.file('keystore.properties')
+if (signingPropertiesFile.exists()) {
+    signingPropertiesFile.withInputStream { signingProperties.load(it) }
+}
+
+android {
+    namespace 'com.dadir.muslimssoulmate'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.dadir.muslimssoulmate'
+        minSdk 26
+        targetSdk 35
+        versionCode 6
+        versionName '0.6.0-beta'
+    }
+    signingConfigs {
+        release {
+            if (signingPropertiesFile.exists()) {
+                storeFile rootProject.file(signingProperties['storeFile'])
+                storePassword signingProperties['storePassword']
+                keyAlias signingProperties['keyAlias']
+                keyPassword signingProperties['keyPassword']
+            }
+        }
+    }
+    buildTypes {
+        debug { debuggable true }
+        release {
+            minifyEnabled false
+            if (signingPropertiesFile.exists()) signingConfig signingConfigs.release
+        }
+    }
 }
