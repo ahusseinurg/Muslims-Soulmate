@@ -1,6 +1,1 @@
-{
-  "version_code": 5,
-  "version_name": "0.5.0-beta",
-  "apk_url": "https://github.com/ahusseinurg/Muslims-Soulmate/raw/refs/heads/main/downloads/Muslims-Soulmate-Android-Beta.apk",
-  "required": false
-}
+{"version_code": 6, "version_name": "0.6.0-beta", "apk_url": "https://github.com/ahusseinurg/Muslims-Soulmate/releases/download/v0.6.0-beta/Muslimate-Android-Beta.apk", "required": false}
